@@ -1,0 +1,38 @@
+.cont{
+  /* background-color: blue; */
+  /* width: 70vw; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  width: 85%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.incont{
+  width: 70%;
+
+}
+
+table{
+  width: 100%;
+}
+
+.search-input{
+  outline: none;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 3px;
+}
+
+.search-input:active{
+  border: 1px solid #bbb;
+}
+
+.search-input:focus{
+  border: 1px solid #aaa;
+}
