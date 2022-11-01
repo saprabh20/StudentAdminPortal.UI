@@ -13,7 +13,7 @@ import { StudentService } from './student.service';
 export class StudentsComponent implements OnInit {
 
   students: Student[]=[];
-  displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile', 'gender'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile', 'gender', 'edit'];
   dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
   @ViewChild(MatSort) matSort!: MatSort;
@@ -23,7 +23,7 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit(): void {
     //fetch students
-    this.studentService.getStudent()
+    this.studentService.getStudents()
       .subscribe(
         (successResponse)=>{
           this.students = successResponse;
