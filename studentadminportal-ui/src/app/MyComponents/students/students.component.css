@@ -19,7 +19,12 @@ table{
   width: 100%;
 }
 
+/* .srcbox{
+  width: 100%;
+} */
+
 .search-input{
+
   outline: none;
   border: 1px solid #ccc;
   padding: 8px 10px;
