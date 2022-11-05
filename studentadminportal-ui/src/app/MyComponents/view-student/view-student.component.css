@@ -9,3 +9,20 @@
 .goback{
   margin-left: 90%;
 }
+
+
+.image-container{
+  height: 200px;
+  width: 200px;
+  background-color: #f7f7f7;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-container img{
+  width: 200px;
+}

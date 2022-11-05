@@ -14,6 +14,7 @@ import { StudentService } from '../students/student.service';
 export class ViewStudentComponent implements OnInit {
   studentId: string | null | undefined;
 
+
   student: Student = {
     id: '',
     firstName: '',
@@ -38,6 +39,8 @@ export class ViewStudentComponent implements OnInit {
 
   header='';
 
+  displayProfileImageUrl='';
+
   genderList: Gender[] = [];
 
   constructor(private readonly studentService: StudentService,
@@ -56,6 +59,7 @@ export class ViewStudentComponent implements OnInit {
             //new student functionality
             this.isNewStudent=true;
             this.header = 'Add New Student';
+            this.setImage();
 
           }else{
             //existing student functionality
@@ -65,6 +69,10 @@ export class ViewStudentComponent implements OnInit {
               .subscribe(
                 (successResponse) => {
                   this.student = successResponse;
+                  this.setImage();
+                },
+                (errorResponse)=>{
+                  this.setImage();
                 }
               );
 
@@ -90,7 +98,7 @@ export class ViewStudentComponent implements OnInit {
       .subscribe(
         (successResponse)=>{
           // console.log(successResponse);
-          this.snackbar.open("Student updated successfully", undefined, {
+          this.snackbar.open("Student Updated Successfully", undefined, {
             duration: 2000
           });
 
@@ -110,7 +118,7 @@ export class ViewStudentComponent implements OnInit {
     this.studentService.deleteStudent(this.student.id)
     .subscribe(
       (successResponse)=>{
-        this.snackbar.open('Student Deleted successfully', undefined, {
+        this.snackbar.open('Student Deleted Successfully', undefined, {
           duration:2000
         });
 
@@ -128,7 +136,7 @@ export class ViewStudentComponent implements OnInit {
     this.studentService.addStudent(this.student)
     .subscribe(
       (successResponse)=>{
-        this.snackbar.open("Student Added successfully", undefined, {
+        this.snackbar.open("Student Added Successfully", undefined, {
           duration: 2000
         });
 
@@ -142,5 +150,37 @@ export class ViewStudentComponent implements OnInit {
         //log
       },
     )
+  }
+
+  uploadImage(event: any):void{
+    if(this.studentId){
+      const file: File = event.target.files[0];
+      this.studentService.uploadImage(this.student.id, file)
+      .subscribe(
+        (successResponse)=>{
+          this.student.profileImageUrl=successResponse;
+          this.setImage();
+
+          this.snackbar.open("Profile Image Updated", undefined, {
+            duration: 2000
+          });
+
+        },
+        ()=>{
+
+        }
+      );
+    }
+  }
+
+  private setImage(): void{
+    if(this.student.profileImageUrl){
+      //fetch by url
+      this.displayProfileImageUrl=this.studentService.getImagePath(this.student.profileImageUrl)
+
+    }else{
+      //display default
+      this.displayProfileImageUrl= "../../../assets/user.png";
+    }
   }
 }
